@@ -20,8 +20,24 @@ public class TaskApp {
                     if (tasks[i] == null){
                         tasks[i] = new Task();
                         System.out.println("Введите заголовок и описание");
-                        tasks[i].title = in.nextLine();
-                        tasks[i].description = in.nextLine();
+                        tasks[i].setTitle(in.nextLine());
+                        tasks[i].setDescription(in.nextLine());
+                        break;
+                    }
+
+                }
+            }
+            else if (choice.equals("add_urgent")){ // проходится по каждому значению массива и, если оно null, то переопределяет его
+                for (int i = 0; i < tasks.length; i++ ){
+                    if (tasks[i] == null){
+                        UrgentTask tempurgernt = new UrgentTask(); // создаем временную локальную переменную, чтобы работать с дочерним классом, впоследствии она будет стерта при выходе из условия
+                        System.out.println("Введите заголовок");
+                        tempurgernt.setTitle(in.nextLine());
+                        System.out.println("Введите Описание");
+                        tempurgernt.setDescription(in.nextLine());
+                        System.out.println("Введите срок");
+                        tempurgernt.setDueDate(in.nextLine());
+                        tasks[i] = tempurgernt;
                         break;
                     }
 
@@ -30,7 +46,7 @@ public class TaskApp {
             else if (choice.equals("list")){ // проходится по каждому элементу и если оно НЕ null, выводит его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] != null){
-                        System.out.println(i + ". Заголовок - " + tasks[i].title + "\n   Описание: " + tasks[i].description);
+                        System.out.println(i + ". Заголовок - " + tasks[i].getTitle() + "\n   Описание: " + tasks[i].getDescription());
                     }
                 }
             }
@@ -38,9 +54,9 @@ public class TaskApp {
                 System.out.println("Введите какую задачу вы хотите завершить");
                 completedTask = in.nextLine();
                 for (int i = 0; i < tasks.length; i++ ){
-                    if (tasks[i] != null && tasks[i].title.equals(completedTask)) {
+                    if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
                         tasks[i].markAsCompleted();
-                        System.out.println(tasks[i].getstatus());
+                        System.out.println(tasks[i].getStatus());
                     }
                 }
             }
@@ -49,8 +65,8 @@ public class TaskApp {
                 System.out.println("Введите какую задачу вы хотите завершить");
                 completedTask = in.nextLine();
                 for (int i = 0; i < tasks.length; i++ ){
-                    if (tasks[i] != null && tasks[i].title.equals(completedTask)) {
-                        System.out.println(tasks[i].getstatus());
+                    if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
+                        System.out.println(tasks[i].getStatus());
                     }
                 }
             }
