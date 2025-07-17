@@ -18,5 +18,8 @@ public class Task {
     public void setDescription(String description){this.description = description;}
     public void setStatus(String status){this.status = status;}
 
+    public void getDetails(){
+        System.out.println("Title: " + title + "\nDescription: " + description + "\nStatus: " + status);
+    }
 }
 

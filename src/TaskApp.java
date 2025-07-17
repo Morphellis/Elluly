@@ -46,7 +46,12 @@ public class TaskApp {
             else if (choice.equals("list")){ // проходится по каждому элементу и если оно НЕ null, выводит его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] != null){
-                        System.out.println(i + ". Заголовок - " + tasks[i].getTitle() + "\n   Описание: " + tasks[i].getDescription());
+                        if (tasks[i] instanceof UrgentTask){
+                            tasks[i].getDetails();
+                        }
+                        else{
+                            tasks[i].getDetails();
+                        }
                     }
                 }
             }
