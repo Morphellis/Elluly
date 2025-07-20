@@ -22,6 +22,7 @@ public class TaskApp {
                         System.out.println("Введите заголовок");
                         tasks[i].setTitle(in.nextLine());
                         System.out.println("Введите описание ");
+                        tasks[i].setDescription(in.nextLine());
                         break;
                     }
 
@@ -46,28 +47,39 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("list")){ // проходится по каждому элементу и если оно НЕ null, выводит его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] != null){
-                        if (tasks[i] instanceof UrgentTask){
-                            tasks[i].getDetails();
-                        }
-                        else{
-                            tasks[i].getDetails();
-                        }
+                        tasks[i].getDetails();
                     }
                 }
             }
             else if (choice.equalsIgnoreCase("complete")){ // Проверяет поле title у всех элементов массива и если находится нужное - вызывается метод complete, который переопределяет поле status с new на completed
                 System.out.println("Введите какую задачу вы хотите завершить");
                 completedTask = in.nextLine();
-                for (int i = 0; i < tasks.length; i++ ){
-                    if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
-                        tasks[i].markAsCompleted();
-                        System.out.println(tasks[i].getStatus());
+                System.out.println("Хотите ввести время завершения задачи? (y/n)");
+                String Choice2 = in.nextLine();
+                if (Choice2.equalsIgnoreCase("n")){
+                    for (int i = 0; i < tasks.length; i++ ){
+                        if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
+                            tasks[i].markAsCompleted();
+                            System.out.println(tasks[i].getStatus());
+                        }
                     }
                 }
+                else if (Choice2.equalsIgnoreCase("y")){
+                    for (int i = 0; i < tasks.length; i++ ){
+                        if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
+                            System.out.println("Введите дату завершения");
+                            String completionDate = in.nextLine();
+                            tasks[i].markAsCompleted(completionDate);
+                            System.out.println(tasks[i].getStatus());
+                            System.out.println(tasks[i].getDateOfCompletion());
+                        }
+                    }
+                }
+
             }
 
             else if (choice.equalsIgnoreCase("status")){ //Временное решение по просмотру статуса того или иного задания
-                System.out.println("Введите какую задачу вы хотите завершить");
+                System.out.println("Введите какую задачу, статус которой хотите посмотреть");
                 completedTask = in.nextLine();
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {

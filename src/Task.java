@@ -4,13 +4,20 @@ public class Task {
     private String title;
     private String description;
     private String status = "new";
+    private String completeonDate;
+
     Task(){
         taskCount++;
     }
     public void markAsCompleted(){
         status = "completed";
     }
+    public void markAsCompleted(String completeonDate){
+    status = "completed";
+    this.completeonDate = completeonDate;
+    }
 
+    public String getDateOfCompletion(){return completeonDate;};
     public String getStatus(){
         return status;
     }
@@ -26,6 +33,7 @@ public class Task {
 
     public void getDetails(){
         System.out.println("Title: " + title + "\nDescription: " + description + "\nStatus: " + status);
+
     }
 }
 
