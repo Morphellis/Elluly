@@ -1,9 +1,12 @@
 public class Task {
 
+    private static int taskCount = 0;
     private String title;
     private String description;
     private String status = "new";
-
+    Task(){
+        taskCount++;
+    }
     public void markAsCompleted(){
         status = "completed";
     }
@@ -17,6 +20,9 @@ public class Task {
     public void setTitle(String title){this.title = title;}
     public void setDescription(String description){this.description = description;}
     public void setStatus(String status){this.status = status;}
+
+    public static int getTaskCount(){return taskCount;};
+
 
     public void getDetails(){
         System.out.println("Title: " + title + "\nDescription: " + description + "\nStatus: " + status);
