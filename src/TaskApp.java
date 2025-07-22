@@ -6,7 +6,7 @@ public class TaskApp {
         String completedTask;
         String choice;
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[5];
+        AbstractTask[] tasks = new AbstractTask[5];
 
         while (true){
             System.out.println("Введите выбор");
@@ -18,7 +18,7 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("add")){ // проходится по каждому значению массива и, если оно null, то переопределяет его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] == null){
-                        tasks[i] = new Task();
+                        tasks[i] = new SimpleTask();
                         System.out.println("Введите заголовок");
                         tasks[i].setTitle(in.nextLine());
                         System.out.println("Введите описание ");
@@ -47,7 +47,7 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("list")){ // проходится по каждому элементу и если оно НЕ null, выводит его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] != null){
-                        tasks[i].getDetails();
+                        tasks[i].printDetails();
                     }
                 }
             }
@@ -88,7 +88,7 @@ public class TaskApp {
                 }
             }
             else if (choice.equalsIgnoreCase("stats")){
-                System.out.println(Task.getTaskCount());
+                System.out.println(SimpleTask.getTaskCount());
             }
             else{
                 System.out.println("Неизвестная команда");

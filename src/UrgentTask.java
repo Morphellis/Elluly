@@ -1,4 +1,4 @@
-public class UrgentTask extends Task{
+public class UrgentTask extends AbstractTask {
 
     private String dueDate;
     public void setDueDate(String dueDate) {this.dueDate = dueDate;}
@@ -8,8 +8,8 @@ public class UrgentTask extends Task{
         super(); //Это можно вообще не писать, т.к. это выполнится неявно в любом случае
     }
 
-    public void getDetails() {
-        super.getDetails();
-        System.out.println("Due Date: " + this.dueDate);
+    public void printDetails() {
+        super.printDetails();
+        System.out.println("Due Date: " + getDueDate());
     }
 }
