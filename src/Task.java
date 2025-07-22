@@ -1,4 +1,4 @@
-public class Task {
+public class Task implements Completable {
 
     private static int taskCount = 0;
     private String title;
@@ -9,10 +9,10 @@ public class Task {
     Task(){
         taskCount++;
     }
-    public void markAsCompleted(){
+    public void complete(){
         status = "completed";
     }
-    public void markAsCompleted(String completeonDate){
+    public void complete (String completeonDate){
     status = "completed";
     this.completeonDate = completeonDate;
     }

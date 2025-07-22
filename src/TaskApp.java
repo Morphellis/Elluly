@@ -59,7 +59,7 @@ public class TaskApp {
                 if (Choice2.equalsIgnoreCase("n")){
                     for (int i = 0; i < tasks.length; i++ ){
                         if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
-                            tasks[i].markAsCompleted();
+                            tasks[i].complete();
                             System.out.println(tasks[i].getStatus());
                         }
                     }
@@ -69,7 +69,7 @@ public class TaskApp {
                         if (tasks[i] != null && tasks[i].getTitle().equals(completedTask)) {
                             System.out.println("Введите дату завершения");
                             String completionDate = in.nextLine();
-                            tasks[i].markAsCompleted(completionDate);
+                            tasks[i].complete(completionDate);
                             System.out.println(tasks[i].getStatus());
                             System.out.println(tasks[i].getDateOfCompletion());
                         }
