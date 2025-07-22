@@ -1,4 +1,4 @@
-public class Task {
+public class AbstractTask {
 
     private static int taskCount = 0;
     private String title;
@@ -6,15 +6,15 @@ public class Task {
     private String status = "new";
     private String completeonDate;
 
-    Task(){
+    AbstractTask(){
         taskCount++;
     }
     public void markAsCompleted(){
         status = "completed";
     }
     public void markAsCompleted(String completeonDate){
-    status = "completed";
-    this.completeonDate = completeonDate;
+        status = "completed";
+        this.completeonDate = completeonDate;
     }
 
     public String getDateOfCompletion(){return completeonDate;};
@@ -31,9 +31,8 @@ public class Task {
     public static int getTaskCount(){return taskCount;};
 
 
-    public void getDetails(){
+    public void printDetails(){
         System.out.println("Title: " + title + "\nDescription: " + description + "\nStatus: " + status);
 
     }
 }
-
