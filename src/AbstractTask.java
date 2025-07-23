@@ -1,4 +1,4 @@
-public class AbstractTask {
+public abstract class AbstractTask {
 
     private static int taskCount = 0;
     private String title;
