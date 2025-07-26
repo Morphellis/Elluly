@@ -17,18 +17,26 @@ public abstract class AbstractTask {
         this.completeonDate = completeonDate;
     }
 
-    public String getDateOfCompletion(){return completeonDate;};
+    public String getDateOfCompletion(){return completeonDate;}
     public String getStatus(){
         return status;
     }
     public String getTitle(){ return title; }
     public String getDescription(){ return description; }
 
-    public void setTitle(String title){this.title = title;}
+    public void setTitle(String title){
+        if (title == null || title.isBlank())
+        {
+            throw new IllegalArgumentException("Title cannot be null or empty");
+        }
+        else{
+        this.title = title;
+        }
+    }
     public void setDescription(String description){this.description = description;}
     public void setStatus(String status){this.status = status;}
 
-    public static int getTaskCount(){return taskCount;};
+    public static int getTaskCount(){return taskCount;}
 
 
     public void printDetails(){
