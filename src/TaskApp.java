@@ -18,11 +18,24 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("add")){ // проходится по каждому значению массива и, если оно null, то переопределяет его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] == null){
-                        tasks[i] = new SimpleTask();
+                        boolean taskAdded = false; // Временная переменная для обработчика ошибок
                         System.out.println("Введите заголовок");
-                        tasks[i].setTitle(in.nextLine());
+                        String tempTitle = in.nextLine();
                         System.out.println("Введите описание ");
-                        tasks[i].setDescription(in.nextLine());
+                        String tempDescription = in.nextLine();
+                        try {
+                            AbstractTask tempTask = new SimpleTask();
+                            tempTask.setTitle(tempTitle);
+                            tempTask.setDescription(tempDescription);
+                            taskAdded = true; // это работает, потому что если будет выкинута ошибка, то выполнение блока try сразу же заканчивается
+                            tasks[i] = tempTask;
+                        }catch (IllegalArgumentException e){
+                            System.out.println("Заголовок не может быть пустым");
+                            break;
+                        }
+                        finally {
+                            System.out.println("Результат добавления: " + (taskAdded ? "успех" : "ошибка"));
+                        }
                         break;
                     }
 
@@ -31,18 +44,31 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("add_urgent")){ // проходится по каждому значению массива и, если оно null, то переопределяет его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] == null){
-                        UrgentTask tempurgernt = new UrgentTask(); // создаем временную локальную переменную, чтобы работать с дочерним классом, впоследствии она будет стерта при выходе из условия
+                        boolean taskAdded = false; // Временная переменная для обработчика ошибок
                         System.out.println("Введите заголовок");
-                        tempurgernt.setTitle(in.nextLine());
-                        System.out.println("Введите Описание");
-                        tempurgernt.setDescription(in.nextLine());
+                        String tempTitle = in.nextLine();
+                        System.out.println("Введите описание ");
+                        String tempDescription = in.nextLine();
                         System.out.println("Введите срок");
-                        tempurgernt.setDueDate(in.nextLine());
-                        tasks[i] = tempurgernt;
+                        String tempDueDate = in.nextLine();
+                        try{
+                            UrgentTask tempTask = new UrgentTask();
+                            tempTask.setTitle(tempTitle);
+                            tempTask.setDescription(tempDescription);
+                            tempTask.setDueDate(tempDueDate);
+                            taskAdded = true;
+                            tasks[i] = tempTask;
+                        }catch (IllegalArgumentException e){
+                            System.out.println("Заголовок не может быть пустым");
+                            break;
+                        }
+                        finally {
+                            System.out.println("Результат добавления: " + (taskAdded ? "успех" : "ошибка"));
+                        }
                         break;
                     }
-
                 }
+
             }
             else if (choice.equalsIgnoreCase("list")){ // проходится по каждому элементу и если оно НЕ null, выводит его
                 for (int i = 0; i < tasks.length; i++ ){
