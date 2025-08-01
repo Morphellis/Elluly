@@ -1,14 +1,17 @@
 public abstract class AbstractTask {
 
-    private static int taskCount = 0;
     private String title;
     private String description;
     private String status = "new";
     private String completeonDate;
 
     AbstractTask(){
-        taskCount++;
     }
+
+    public String toString(){
+        return title + "\t" + description + "\t" + status + "\t" + completeonDate;
+    }
+
     public void markAsCompleted(){
         status = "completed";
     }
@@ -35,8 +38,6 @@ public abstract class AbstractTask {
     }
     public void setDescription(String description){this.description = description;}
     public void setStatus(String status){this.status = status;}
-
-    public static int getTaskCount(){return taskCount;}
 
 
     public void printDetails(){

@@ -73,7 +73,7 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("list")){ // проходится по каждому элементу и если оно НЕ null, выводит его
                 for (int i = 0; i < tasks.length; i++ ){
                     if (tasks[i] != null){
-                        tasks[i].printDetails();
+                        System.out.println(tasks[i].toString());
                     }
                 }
             }
@@ -112,9 +112,6 @@ public class TaskApp {
                         System.out.println(tasks[i].getStatus());
                     }
                 }
-            }
-            else if (choice.equalsIgnoreCase("stats")){
-                System.out.println(SimpleTask.getTaskCount());
             }
             else{
                 System.out.println("Неизвестная команда");

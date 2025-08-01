@@ -12,4 +12,8 @@ public class UrgentTask extends AbstractTask {
         super.printDetails();
         System.out.println("Due Date: " + getDueDate());
     }
+
+    public String toString(){
+        return super.toString()+ "\t" + dueDate;
+    }
 }
