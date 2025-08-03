@@ -17,7 +17,7 @@ public class UrgentTask extends AbstractTask {
 
     @Override
     public String toString(){
-        return super.toString()+ "\t" + dueDate;
+        return super.toString() + "Дата создания: " + dueDate + "\n";
     }
 
     @Override

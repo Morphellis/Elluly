@@ -1,4 +1,5 @@
 import  java.util.Scanner;
+import java.util.Arrays;
 
 public class TaskApp {
     public static void main(String[] args) {
@@ -7,17 +8,7 @@ public class TaskApp {
         String choice;
         Scanner in = new Scanner(System.in);
         AbstractTask[] tasks = new AbstractTask[5];
-
-//        UrgentTask task2 = new UrgentTask();
-//        UrgentTask task3 = new UrgentTask();
-//        task2.setTitle("test");
-//        task3.setTitle("test");
-//        task2.setDescription("test2");
-//        task3.setDescription("test2");
-//        task2.setDueDate("22");
-//        task3.setDueDate("22");
-//        System.out.println(task2.hashCode());
-//        System.out.println(task3.hashCode());
+        NameComparator nameComparator = new NameComparator();
 
         while (true){
             System.out.println("Введите выбор");
@@ -114,7 +105,6 @@ public class TaskApp {
                 }
 
             }
-
             else if (choice.equalsIgnoreCase("status")){ //Временное решение по просмотру статуса того или иного задания
                 System.out.println("Введите какую задачу, статус которой хотите посмотреть");
                 completedTask = in.nextLine();
@@ -124,11 +114,16 @@ public class TaskApp {
                     }
                 }
             }
+            else if(choice.equalsIgnoreCase("sort")){
+                System.out.println("Массив до сортировки:");
+                System.out.println(Arrays.toString(tasks));
+                Arrays.sort(tasks, nameComparator);
+                System.out.println("\n--- Массив после сортировки по возрасту ---");
+                System.out.println(Arrays.toString(tasks));
+            }
             else{
                 System.out.println("Неизвестная команда");
             }
-
-
         }
     }
 }

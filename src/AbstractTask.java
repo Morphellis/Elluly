@@ -12,7 +12,8 @@ public abstract class AbstractTask {
 
     @Override
     public String toString(){
-        return title + "\t" + description + "\t" + status + "\t" + completeonDate;
+        completeonDate = completeonDate == null ? "-" : completeonDate;
+        return "Заголовок: " + title + "\t"+ "Описание: " + description + "\t"+ "Статус: " + status + "\t" + "Дата завершения: " + completeonDate + "\n";
     }
 
     @Override
