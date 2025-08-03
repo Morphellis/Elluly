@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public abstract class AbstractTask {
 
     private String title;
@@ -8,8 +10,25 @@ public abstract class AbstractTask {
     AbstractTask(){
     }
 
+    @Override
     public String toString(){
         return title + "\t" + description + "\t" + status + "\t" + completeonDate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // 1. Проверяем, не сравниваем ли мы объект сам с собой
+        if (this == obj) return true;
+        // 2. Проверяем, не пришел ли null и совпадают ли классы
+        if (obj == null || getClass() != obj.getClass()) return false;
+        // 3. Приводим объект obj к нашему типу
+        AbstractTask task = (AbstractTask) obj;
+        return Objects.equals(this.title, task.title) && Objects.equals(this.description, task.description);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(title, description);
     }
 
     public void markAsCompleted(){

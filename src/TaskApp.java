@@ -8,6 +8,17 @@ public class TaskApp {
         Scanner in = new Scanner(System.in);
         AbstractTask[] tasks = new AbstractTask[5];
 
+//        UrgentTask task2 = new UrgentTask();
+//        UrgentTask task3 = new UrgentTask();
+//        task2.setTitle("test");
+//        task3.setTitle("test");
+//        task2.setDescription("test2");
+//        task3.setDescription("test2");
+//        task2.setDueDate("22");
+//        task3.setDueDate("22");
+//        System.out.println(task2.hashCode());
+//        System.out.println(task3.hashCode());
+
         while (true){
             System.out.println("Введите выбор");
             choice = in.nextLine();
