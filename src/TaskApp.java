@@ -8,6 +8,7 @@ public class TaskApp {
         Scanner in = new Scanner(System.in);
         List<AbstractTask> tasks = new ArrayList<>();
         NameComparator nameComparator = new NameComparator();
+        Queue<AbstractTask> urgentQueue = new LinkedList<>();
 
         while (true){
             System.out.println("Введите выбор");
@@ -65,8 +66,13 @@ public class TaskApp {
 
             }
             else if (choice.equalsIgnoreCase("list")){
-                for (int i = 0; i < tasks.size(); i++ ){
-                    System.out.println(tasks.get(i).toString());
+                for (AbstractTask task : tasks) {
+                    System.out.println(task.toString());
+                }
+            }
+            else if (choice.equalsIgnoreCase("urgent-list")){
+                for (AbstractTask task : urgentQueue) {
+                    System.out.println(task.toString());
                 }
             }
             else if (choice.equalsIgnoreCase("complete")){ // Проверяет поле title у всех элементов массива и если находится нужное - вызывается метод complete, который переопределяет поле status с new на completed
@@ -98,9 +104,9 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("status")){ //Временное решение по просмотру статуса того или иного задания
                 System.out.println("Введите какую задачу, статус которой хотите посмотреть");
                 completedTask = in.nextLine();
-                for (int i = 0; i < tasks.size(); i++ ){
-                    if (tasks.get(i).getTitle().equals(completedTask)) {
-                        System.out.println(tasks.get(i).getStatus());
+                for (AbstractTask task : tasks) {
+                    if (task.getTitle().equals(completedTask)) {
+                        System.out.println(task.getStatus());
                     }
                 }
             }
@@ -115,8 +121,32 @@ public class TaskApp {
                     System.out.println(task);
                 }
             }
+            else if(choice.equalsIgnoreCase("add_to_urgent_queue")){
+                boolean taskAdded = false;
+                System.out.println("Введите заголовок");
+                String tempTitle = in.nextLine();
+                System.out.println("Введите описание ");
+                String tempDescription = in.nextLine();
+                System.out.println("Введите срок");
+                String tempDueDate = in.nextLine();
+                try{
+                    UrgentTask tempTask = new UrgentTask();
+                    tempTask.setTitle(tempTitle);
+                    tempTask.setDescription(tempDescription);
+                    tempTask.setDueDate(tempDueDate);
+                    taskAdded = true;
+                    urgentQueue.offer(tempTask);
+                }catch (IllegalArgumentException e){
+                    System.out.println("Заголовок не может быть пустым");
+                    break;
+                }
+                finally {
+                    System.out.println("Результат добавления: " + (taskAdded ? "успех" : "ошибка"));
+                }
+            }
             else{
                 System.out.println("Неизвестная команда");
+
             }
         }
     }
