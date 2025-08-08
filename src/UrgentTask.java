@@ -10,11 +10,6 @@ public class UrgentTask extends AbstractTask {
         super(); //Это можно вообще не писать, т.к. это выполнится неявно в любом случае
     }
 
-    public void printDetails() {
-        super.printDetails();
-        System.out.println("Due Date: " + getDueDate());
-    }
-
     @Override
     public String toString(){
         return super.toString() + "Дата создания: " + dueDate + "\n";

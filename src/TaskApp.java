@@ -17,21 +17,27 @@ public class TaskApp {
                 System.out.println("До свидания!");
                 break;
             }
-            else if (choice.equalsIgnoreCase("add")){ // проходится по каждому значению массива и, если оно null, то переопределяет его
+            else if (choice.equalsIgnoreCase("add")){
                         boolean taskAdded = false; // Временная переменная для обработчика ошибок
                         System.out.println("Введите заголовок");
                         String tempTitle = in.nextLine();
                         System.out.println("Введите описание ");
                         String tempDescription = in.nextLine();
+                        System.out.println("Хотите ввести тег? y/n");
+                        Set <String> tempTags = new HashSet<>();
+                        if (in.nextLine().equalsIgnoreCase("y")){
+                            System.out.println("Введите тег");
+                            tempTags.add(in.nextLine());
+                        }
                         try {
                             SimpleTask tempTask = new SimpleTask();
                             tempTask.setTitle(tempTitle);
+                            tempTask.setTags(tempTags);
                             tempTask.setDescription(tempDescription);
                             taskAdded = true; // это работает, потому что если будет выкинута ошибка, то выполнение блока try сразу же заканчивается
                             tasks.add(tempTask); // в конце ArrayList закидывается переменная tempTask
                         }catch (IllegalArgumentException e){
                             System.out.println("Заголовок не может быть пустым");
-                            break;
                         }
                         finally {
                             System.out.println("Результат добавления: " + (taskAdded ? "успех" : "ошибка"));
@@ -45,10 +51,17 @@ public class TaskApp {
                         String tempTitle = in.nextLine();
                         System.out.println("Введите описание ");
                         String tempDescription = in.nextLine();
+                        System.out.println("Хотите ввести тег? y/n");
+                        Set <String> tempTags = new HashSet<>();
+                        if (in.nextLine().equalsIgnoreCase("y")){
+                            System.out.println("Введите тег");
+                            tempTags.add(in.nextLine());
+                        }
                         System.out.println("Введите срок");
                         String tempDueDate = in.nextLine();
                         try{
                             UrgentTask tempTask = new UrgentTask();
+                            tempTask.setTags(tempTags);
                             tempTask.setTitle(tempTitle);
                             tempTask.setDescription(tempDescription);
                             tempTask.setDueDate(tempDueDate);
@@ -56,7 +69,6 @@ public class TaskApp {
                             tasks.add(tempTask);
                         }catch (IllegalArgumentException e){
                             System.out.println("Заголовок не может быть пустым");
-                            break;
                         }
                         finally {
                             System.out.println("Результат добавления: " + (taskAdded ? "успех" : "ошибка"));
@@ -70,7 +82,7 @@ public class TaskApp {
                     System.out.println(task.toString());
                 }
             }
-            else if (choice.equalsIgnoreCase("urgent-list")){
+            else if (choice.equalsIgnoreCase("queue-list")){
                 for (AbstractTask task : urgentQueue) {
                     System.out.println(task.toString());
                 }
@@ -144,6 +156,17 @@ public class TaskApp {
                     System.out.println("Результат добавления: " + (taskAdded ? "успех" : "ошибка"));
                 }
             }
+            else if(choice.equalsIgnoreCase("add_tag")){
+                System.out.println("К какой задаче хотите добавить тэг?");
+                String tempTask = in.nextLine();
+                for(AbstractTask task : tasks)
+                    if (task.getTitle().equals(tempTask)) {
+                        System.out.println("Введите какой хотите добавить тег");
+                        task.setTags(Collections.singleton(in.nextLine())); //Метод, создающий коллекцию из одного объекта
+
+                    }
+            }
+
             else{
                 System.out.println("Неизвестная команда");
 

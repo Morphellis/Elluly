@@ -1,7 +1,10 @@
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class AbstractTask {
 
+    public Set<String> tags = new HashSet<>();
     private String title;
     private String description;
     private String status = "new";
@@ -13,7 +16,7 @@ public abstract class AbstractTask {
     @Override
     public String toString(){
         completeonDate = completeonDate == null ? "-" : completeonDate;
-        return "Заголовок: " + title + "\t"+ "Описание: " + description + "\t"+ "Статус: " + status + "\t" + "Дата завершения: " + completeonDate + "\n";
+        return "Теги: " + tags + " Заголовок: " + title + "\t"+ "Описание: " + description + "\t"+ "Статус: " + status + "\t" + "Дата завершения: " + completeonDate + "\n";
     }
 
     @Override
@@ -41,11 +44,11 @@ public abstract class AbstractTask {
     }
 
     public String getDateOfCompletion(){return completeonDate;}
-    public String getStatus(){
-        return status;
-    }
+    public String getStatus(){return status;}
     public String getTitle(){ return title; }
-    public String getDescription(){ return description; }
+
+    public void setDescription(String description){this.description = description;}
+    public void setStatus(String status){this.status = status;}
 
     public void setTitle(String title){
         if (title == null || title.isBlank())
@@ -56,12 +59,12 @@ public abstract class AbstractTask {
         this.title = title;
         }
     }
-    public void setDescription(String description){this.description = description;}
-    public void setStatus(String status){this.status = status;}
 
-
-    public void printDetails(){
-        System.out.println("Title: " + title + "\nDescription: " + description + "\nStatus: " + status);
-
+    public void setTags(Set<String> tags){
+        if (tags != null) {
+            this.tags.addAll(tags);
+            // Используем addAll, чтобы добавить все теги из другого набора, а не заменить старые.
+            // Это позволяет добавлять сразу несколько тегов (например, из строки "тег1 тег2").
+        }
     }
 }
