@@ -4,19 +4,25 @@ import java.util.Set;
 
 public abstract class AbstractTask {
 
+    private static int ID = 0;
+
     public Set<String> tags = new HashSet<>();
+
+    private int currentID;
     private String title;
     private String description;
     private String status = "new";
     private String completeonDate;
 
     AbstractTask(){
+        this.currentID = ID;
+        ID++;
     }
 
     @Override
     public String toString(){
         completeonDate = completeonDate == null ? "-" : completeonDate;
-        return "Теги: " + tags + " Заголовок: " + title + "\t"+ "Описание: " + description + "\t"+ "Статус: " + status + "\t" + "Дата завершения: " + completeonDate + "\n";
+        return "ID: " + currentID + "\t" + "Тэги: " + tags + "\t"+ " Заголовок: " + title + "\t"+ "Описание: " + description + "\t"+ "Статус: " + status + "\t" + "Дата завершения: " + completeonDate + "\n";
     }
 
     @Override
