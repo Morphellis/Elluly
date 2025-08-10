@@ -8,7 +8,7 @@ public abstract class AbstractTask {
 
     public Set<String> tags = new HashSet<>();
 
-    private int currentID;
+    private int currentID = 0;
     private String title;
     private String description;
     private String status = "new";
@@ -72,5 +72,9 @@ public abstract class AbstractTask {
             // Используем addAll, чтобы добавить все теги из другого набора, а не заменить старые.
             // Это позволяет добавлять сразу несколько тегов (например, из строки "тег1 тег2").
         }
+    }
+
+    public int getID(){
+        return currentID;
     }
 }

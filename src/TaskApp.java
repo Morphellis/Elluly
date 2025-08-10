@@ -6,9 +6,9 @@ public class TaskApp {
         String completedTask;
         String choice;
         Scanner in = new Scanner(System.in);
-        List<AbstractTask> tasks = new ArrayList<>();
         NameComparator nameComparator = new NameComparator();
         Queue<AbstractTask> urgentQueue = new LinkedList<>();
+        Map <Integer, AbstractTask> taskMap = new HashMap<>();
 
         while (true){
             System.out.println("Введите выбор");
@@ -35,7 +35,7 @@ public class TaskApp {
                             tempTask.setTags(tempTags);
                             tempTask.setDescription(tempDescription);
                             taskAdded = true; // это работает, потому что если будет выкинута ошибка, то выполнение блока try сразу же заканчивается
-                            tasks.add(tempTask); // в конце ArrayList закидывается переменная tempTask
+                            taskMap.put(tempTask.getID(), tempTask); // в конце ArrayList закидывается переменная tempTask
                         }catch (IllegalArgumentException e){
                             System.out.println("Заголовок не может быть пустым");
                         }
@@ -66,7 +66,7 @@ public class TaskApp {
                             tempTask.setDescription(tempDescription);
                             tempTask.setDueDate(tempDueDate);
                             taskAdded = true;
-                            tasks.add(tempTask);
+                            taskMap.put(tempTask.getID(), tempTask);
                         }catch (IllegalArgumentException e){
                             System.out.println("Заголовок не может быть пустым");
                         }
@@ -78,8 +78,10 @@ public class TaskApp {
 
             }
             else if (choice.equalsIgnoreCase("list")){
-                for (AbstractTask task : tasks) {
-                    System.out.println(task.toString());
+                for (Map.Entry <Integer, AbstractTask> entry : taskMap.entrySet()) {
+                    Integer key = entry.getKey();
+                    AbstractTask value = entry.getValue();
+                    System.out.println(key + value.toString());
                 }
             }
             else if (choice.equalsIgnoreCase("queue-list")){
@@ -93,21 +95,21 @@ public class TaskApp {
                 System.out.println("Хотите ввести время завершения задачи? (y/n)");
                 String Choice2 = in.nextLine();
                 if (Choice2.equalsIgnoreCase("n")){
-                    for (int i = 0; i < tasks.size(); i++ ){
-                        if (tasks.get(i).getTitle().equals(completedTask)) {
-                            tasks.get(i).markAsCompleted();
-                            System.out.println(tasks.get(i).getStatus());
+                    for (int i = 0; i < taskMap.size(); i++ ){
+                        if (taskMap.get(i).getTitle().equals(completedTask)) {
+                            taskMap.get(i).markAsCompleted();
+                            System.out.println(taskMap.get(i).getStatus());
                         }
                     }
                 }
                 else if (Choice2.equalsIgnoreCase("y")){
-                    for (int i = 0; i < tasks.size(); i++ ){
-                        if (tasks.get(i).getTitle().equals(completedTask)) {
+                    for (int i = 0; i < taskMap.size(); i++ ){
+                        if (taskMap.get(i).getTitle().equals(completedTask)) {
                             System.out.println("Введите дату завершения");
                             String completionDate = in.nextLine();
-                            tasks.get(i).markAsCompleted(completionDate);
-                            System.out.println(tasks.get(i).getStatus());
-                            System.out.println(tasks.get(i).getDateOfCompletion());
+                            taskMap.get(i).markAsCompleted(completionDate);
+                            System.out.println(taskMap.get(i).getStatus());
+                            System.out.println(taskMap.get(i).getDateOfCompletion());
                         }
                     }
                 }
@@ -116,23 +118,24 @@ public class TaskApp {
             else if (choice.equalsIgnoreCase("status")){ //Временное решение по просмотру статуса того или иного задания
                 System.out.println("Введите какую задачу, статус которой хотите посмотреть");
                 completedTask = in.nextLine();
-                for (AbstractTask task : tasks) {
-                    if (task.getTitle().equals(completedTask)) {
-                        System.out.println(task.getStatus());
+                for (AbstractTask value : taskMap.values()) {
+                    if (value.getTitle().equals(completedTask)) {
+                        System.out.println(value.getStatus());
                     }
                 }
             }
-            else if(choice.equalsIgnoreCase("sort")){
-                System.out.println("Массив до сортировки:");
-                for (AbstractTask task : tasks){
-                    System.out.println(task);
-                }
-                tasks.sort(nameComparator);
-                System.out.println("\n--- Массив после сортировки по возрасту ---");
-                for (AbstractTask task : tasks){
-                    System.out.println(task);
-                }
-            }
+            // пока не разобрался
+//            else if(choice.equalsIgnoreCase("sort")){
+//                System.out.println("Массив до сортировки:");
+//                for (AbstractTask task : taskMap){
+//                    System.out.println(task);
+//                }
+//                taskMap.sort(nameComparator);
+//                System.out.println("\n--- Массив после сортировки по возрасту ---");
+//                for (AbstractTask task : tasks){
+//                    System.out.println(task);
+//                }
+//            }
             else if(choice.equalsIgnoreCase("add_to_urgent_queue")){
                 boolean taskAdded = false;
                 System.out.println("Введите заголовок");
@@ -159,10 +162,10 @@ public class TaskApp {
             else if(choice.equalsIgnoreCase("add_tag")){
                 System.out.println("К какой задаче хотите добавить тэг?");
                 String tempTask = in.nextLine();
-                for(AbstractTask task : tasks)
-                    if (task.getTitle().equals(tempTask)) {
+                for(AbstractTask value : taskMap.values())
+                    if (value.getTitle().equals(tempTask)) {
                         System.out.println("Введите какой хотите добавить тег");
-                        task.setTags(Collections.singleton(in.nextLine())); //Метод, создающий коллекцию из одного объекта
+                        value.setTags(Collections.singleton(in.nextLine())); //Метод, создающий коллекцию из одного объекта
 
                     }
             }
