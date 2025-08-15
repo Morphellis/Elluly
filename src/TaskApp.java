@@ -124,14 +124,10 @@ public class TaskApp {
             }
             else if(choice.equalsIgnoreCase("sort")){
                 System.out.println("Массив до сортировки:");
-                for (AbstractTask task : tasks){
-                    System.out.println(task);
-                }
-                tasks.sort(nameComparator);
+                tasks.forEach(task -> System.out.println(task.toString())); // Перебор через лямбду
+                tasks.sort((task1, task2) -> task1.getTitle().compareTo(task2.getTitle())); // comparing через лямбду
                 System.out.println("\n--- Массив после сортировки по возрасту ---");
-                for (AbstractTask task : tasks){
-                    System.out.println(task);
-                }
+                tasks.forEach(task -> System.out.println(task.toString()));
             }
             else if(choice.equalsIgnoreCase("add_to_urgent_queue")){
                 boolean taskAdded = false;
