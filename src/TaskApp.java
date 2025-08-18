@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TaskApp {
     public static void main(String[] args) {
@@ -162,7 +163,18 @@ public class TaskApp {
 
                     }
             }
-
+            else if(choice.equalsIgnoreCase("filter")){
+                List<AbstractTask> filteredTasks = tasks.stream()
+                        .filter(abstractTask -> abstractTask.getStatus().equalsIgnoreCase("Completed"))
+                        .toList();
+                filteredTasks.forEach(task -> System.out.println(task.toString()));
+            }
+            else if(choice.equalsIgnoreCase("titles")){
+                List<String> Titles = tasks.stream()
+                        .map(AbstractTask::getTitle)
+                        .toList();
+                Titles.forEach(System.out::println);
+            }
             else{
                 System.out.println("Неизвестная команда");
 
