@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TaskApp {
     public static void main(String[] args) {
@@ -94,21 +93,21 @@ public class TaskApp {
                 System.out.println("Хотите ввести время завершения задачи? (y/n)");
                 String Choice2 = in.nextLine();
                 if (Choice2.equalsIgnoreCase("n")){
-                    for (int i = 0; i < tasks.size(); i++ ){
-                        if (tasks.get(i).getTitle().equals(completedTask)) {
-                            tasks.get(i).markAsCompleted();
-                            System.out.println(tasks.get(i).getStatus());
+                    for (AbstractTask task : tasks) {
+                        if (task.getTitle().equals(completedTask)) {
+                            task.markAsCompleted();
+                            System.out.println(task.getStatus());
                         }
                     }
                 }
                 else if (Choice2.equalsIgnoreCase("y")){
-                    for (int i = 0; i < tasks.size(); i++ ){
-                        if (tasks.get(i).getTitle().equals(completedTask)) {
+                    for (AbstractTask task : tasks) {
+                        if (task.getTitle().equals(completedTask)) {
                             System.out.println("Введите дату завершения");
                             String completionDate = in.nextLine();
-                            tasks.get(i).markAsCompleted(completionDate);
-                            System.out.println(tasks.get(i).getStatus());
-                            System.out.println(tasks.get(i).getDateOfCompletion());
+                            task.markAsCompleted(completionDate);
+                            System.out.println(task.getStatus());
+                            System.out.println(task.getDateOfCompletion());
                         }
                     }
                 }
